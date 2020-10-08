@@ -4,8 +4,12 @@ import {
   CardContent,
   Typography,
   Divider,
-  makeStyles
+  makeStyles,
+  IconButton
 } from '@material-ui/core';
+
+import { Link } from 'gatsby'
+import LinkIcon from '@material-ui/icons/Link';
 
 
 const useStyles = makeStyles({
@@ -26,6 +30,11 @@ export default function({ faq }) {
       <CardContent>
         <Typography className={classes.title} variant="h3">
           { faq.frontmatter.question }
+          <IconButton>
+            <Link to={faq.frontmatter.slug}>
+              <LinkIcon/>
+            </Link>
+          </IconButton>
         </Typography>
         <Divider/>
         <Typography color="textPrimary" component="div" dangerouslySetInnerHTML={{ __html: faq.html }}>
