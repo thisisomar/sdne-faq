@@ -4,11 +4,9 @@ import {
   CardContent,
   Typography,
   Divider,
-  makeStyles,
-  IconButton
-} from "@material-ui/core";
+  makeStyles
+} from '@material-ui/core';
 
-import { LinkIcon } from "@material-ui/icons/Link";
 
 const useStyles = makeStyles({
   title: {
@@ -23,18 +21,17 @@ const useStyles = makeStyles({
   }
 })
 
-export default function() {
+export default function({ faq }) {
   const classes = useStyles();
 
   return(
     <Card className={classes.size}>
       <CardContent>
         <Typography className={classes.title} variant="h3">
-          This is a test question.
+          { faq.frontmatter.question }
         </Typography>
         <Divider/>
-        <Typography variant="body1" color="textPrimary" component="p">
-          This is test content
+        <Typography variant="body1" color="textPrimary" component="p" dangerouslySetInnerHTML={{ __html: faq.html }}>
         </Typography>
       </CardContent>
     </Card>
