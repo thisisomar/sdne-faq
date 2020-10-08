@@ -30,10 +30,8 @@ export default function({ faq }) {
       <CardContent>
         <Typography className={classes.title} variant="h3">
           { faq.frontmatter.question }
-          <IconButton>
-            <Link to={faq.frontmatter.slug}>
+          <IconButton component={Link} to={faq.frontmatter.slug}>
               <LinkIcon/>
-            </Link>
           </IconButton>
         </Typography>
         <Divider/>
