@@ -16,9 +16,6 @@ const useStyles = makeStyles({
     width: '1000px',
     maxWidth: '100%',
   },
-  p: {
-    fontSize: 20,
-  }
 })
 
 export default function({ faq }) {
@@ -31,7 +28,7 @@ export default function({ faq }) {
           { faq.frontmatter.question }
         </Typography>
         <Divider/>
-        <Typography variant="body1" color="textPrimary" component="p" dangerouslySetInnerHTML={{ __html: faq.html }}>
+        <Typography color="textPrimary" component="div" dangerouslySetInnerHTML={{ __html: faq.html }}>
         </Typography>
       </CardContent>
     </Card>
