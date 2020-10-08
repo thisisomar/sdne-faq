@@ -6,5 +6,16 @@
 
 module.exports = {
   /* Your site config here */
-  plugins: [],
+  plugins: [
+    `gatsby-plugin-material-ui`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `faqs`,
+        path: `${__dirname}/src/faqs`,
+      },
+    },
+    `gatsby-transformer-remark`,
+    `gatsby-plugin-slug`,
+  ],
 }
