@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import { Box, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import FAQCard from '../components/FAQCard.js';
 import { graphql } from 'gatsby';
 
@@ -14,17 +14,7 @@ const Home = ({
     .map(edge => <Grid item xs={8}><FAQCard faq={edge.node}/></Grid>)
   return (
     <Layout>
-      <Box p={4} maxWidth="sm">
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          spacing={4}
-        >
-          {FAQs}
-        </Grid>
-      </Box>
+      {FAQs}
     </Layout>
   )
 }
