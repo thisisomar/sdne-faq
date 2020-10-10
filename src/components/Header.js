@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme) => createStyles ({
     fontWeight: 700,
 
     [theme.breakpoints.down('xl')]: {
-      fontSize: '3em'
+      fontSize: '3em',
+      textAlign: 'center'
     },
     [theme.breakpoints.down('lg')]: {
       fontSize: '2.7em'
     },
     [theme.breakpoints.down('md')]: {
-        fontSize: '2.1em',
-        textAlign: 'center'
+        fontSize: '2.1em'
     },
     [theme.breakpoints.down('sm')]: {
         fontSize: '1.6em'
