@@ -40,10 +40,10 @@ const useStyles = makeStyles((theme) => createStyles ({
   size: {
     width: "100%",
     backgroundColor: theme.palette.primary.dark,
-    padding: "25px 30px",
     
     [theme.breakpoints.down('xl')]: {
-      maxWidth: 1200
+      maxWidth: 1200,
+      padding: "25px 35px"
     },
     [theme.breakpoints.down('lg')]: {
       
@@ -55,12 +55,15 @@ const useStyles = makeStyles((theme) => createStyles ({
         
     },
     [theme.breakpoints.down('xs')]: {
-      maxWidth: "100%"
+      maxWidth: "100%",
+      padding: "20px"
     }
   },
   body: {
     lineHeight: 1.75,
     color: "#ffffff",
+    fontFamily: 'Roboto, sans-serif',
+    fontWeight: 300,
 
     '& p, li': {
       [theme.breakpoints.down('xl')]: {
