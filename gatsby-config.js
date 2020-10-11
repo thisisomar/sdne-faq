@@ -7,7 +7,6 @@
 module.exports = {
   /* Your site config here */
   plugins: [
-    `gatsby-plugin-material-ui`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
