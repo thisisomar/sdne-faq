@@ -15,7 +15,7 @@ const Layout = ({ children }) => (
     <ThemeProvider theme={dark}>
       <CssBaseline/>
       <Header/>
-      <Box pl={3} pr={3} pt={5} pb={5} maxWidth="sm">
+      <Box p={4} maxWidth="sm">
         <Grid
           container
           direction="column"
