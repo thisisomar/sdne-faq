@@ -11,7 +11,7 @@ const Home = ({
 }) => {
   const FAQs = edges
     .filter(edge => !!edge.node.frontmatter.question)
-    .map(edge => <Grid item xs={8}><FAQCard faq={edge.node}/></Grid>)
+    .map(edge => <Grid item xs={12}><FAQCard faq={edge.node}/></Grid>)
   return (
     <Layout>
       {FAQs}
