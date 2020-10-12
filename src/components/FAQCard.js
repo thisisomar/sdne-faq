@@ -130,7 +130,17 @@ export default function ({ faq }) {
             className={classes.button}
             to='.'
             onClick={() => {
-              copyToClipboard(window.location.href + (window.location.href.indexOf(faq.frontmatter.slug) == -1 ? faq.frontmatter.slug : ''))
+              if (navigator.share) {
+                console.log('Share Sheet')
+                navigator.share({
+                  title: faq.frontmatter.question,
+                  url: window.location.href + (window.location.href.indexOf(faq.frontmatter.slug) === -1 ? faq.frontmatter.slug : '')
+                })
+                .catch(console.error)
+              } else {
+                console.log('Clipboard')
+                copyToClipboard(window.location.href + (window.location.href.indexOf(faq.frontmatter.slug) === -1 ? faq.frontmatter.slug : ''))
+              }
             }}
             startIcon={<LinkIcon />}
           >

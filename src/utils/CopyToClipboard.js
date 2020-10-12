@@ -22,7 +22,6 @@ export const copyToClipboard = str => {
     textarea.setSelectionRange(0, textarea.value.length)
     document.execCommand(`copy`)
     document.body.removeChild(textarea)
-    alert("Copied!")
     return Promise.resolve(true)
   }
 
