@@ -8,6 +8,7 @@ import {
   createStyles,
   Button,
   Box,
+  Tooltip,
 } from "@material-ui/core"
 
 import { Link } from "gatsby"
@@ -105,6 +106,15 @@ const useStyles = makeStyles(theme =>
 
 export default function ({ faq }) {
   const classes = useStyles()
+  const [open, setOpen] = React.useState(false)
+
+  const handleTooltipClose = () => {
+    setOpen(false)
+  }
+
+  const handleTooltipOpen = () => {
+    setOpen(true)
+  }
 
   return (
     <Card className={classes.size}>
@@ -123,29 +133,53 @@ export default function ({ faq }) {
         />
 
         <Box className={classes.controlBox}>
-          <Button
-            variant="contained"
-            color="secondary"
-            component={Link}
-            className={classes.button}
-            to='.'
-            onClick={() => {
-              if (navigator.share) {
-                console.log('Share Sheet')
-                navigator.share({
-                  title: faq.frontmatter.question,
-                  url: window.location.href + (window.location.href.indexOf(faq.frontmatter.slug) === -1 ? faq.frontmatter.slug : '')
-                })
-                .catch(console.error)
-              } else {
-                console.log('Clipboard')
-                copyToClipboard(window.location.href + (window.location.href.indexOf(faq.frontmatter.slug) === -1 ? faq.frontmatter.slug : ''))
-              }
+          <Tooltip
+            title="Copied!"
+            aria-label="copied"
+            PopperProps={{
+              disablePortal: true,
             }}
-            startIcon={<LinkIcon />}
+            onClose={handleTooltipClose}
+            open={open}
+            disableFocusListener
+            disableHoverListener
+            disableTouchListener
+            arrow
           >
-            Share
-          </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              component={Link}
+              className={classes.button}
+              to="."
+              onClick={() => {
+                if (navigator.share) {
+                  navigator
+                    .share({
+                      title: faq.frontmatter.question,
+                      url:
+                        window.location.href +
+                        (window.location.href.indexOf(faq.frontmatter.slug) ===
+                        -1
+                          ? faq.frontmatter.slug
+                          : ""),
+                    })
+                    .catch(console.error)
+                } else {
+                  handleTooltipOpen()
+                  copyToClipboard(
+                    window.location.href +
+                      (window.location.href.indexOf(faq.frontmatter.slug) === -1
+                        ? faq.frontmatter.slug
+                        : "")
+                  )
+                }
+              }}
+              startIcon={<LinkIcon />}
+            >
+              Share
+            </Button>
+          </Tooltip>
         </Box>
       </CardContent>
     </Card>
