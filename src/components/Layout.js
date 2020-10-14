@@ -15,12 +15,12 @@ const Layout = ({ children }) => (
     <ThemeProvider theme={dark}>
       <CssBaseline/>
       <Header/>
-      <Box pl={3} pr={3} pt={5} pb={5} maxWidth="sm">
+      <Box pl={3} pr={3} pt={5} pb={5} maxWidth='sm'>
         <Grid
           container
-          direction="column"
-          justify="center"
-          alignItems="center"
+          direction='column'
+          justify='center'
+          alignItems='center'
           spacing={4}
         >
           { children }
