@@ -5,7 +5,7 @@ import {
   Typography,
   makeStyles,
   createStyles
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => createStyles ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => createStyles ({
     },
     [theme.breakpoints.down('xs')]: {
         fontSize: '1.4em',
-        textAlign: "left"
+        textAlign: 'left'
     }
 
   },
@@ -60,9 +60,9 @@ export default function Header() {
   const classes = useStyles();
 
   return(
-    <AppBar position="static" className={classes.appBar}>
+    <AppBar position='static' className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
-        <Typography className={classes.root} variant="h3">
+        <Typography className={classes.root} variant='h3'>
           Software Development & Network Engineering
         </Typography>
       </Toolbar>
