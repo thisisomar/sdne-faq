@@ -167,6 +167,9 @@ export default function ({ faq }) {
                     .catch(console.error)
                 } else {
                   handleTooltipOpen()
+                  setTimeout(() => {
+                    handleTooltipClose()
+                  }, 1000)
                   copyToClipboard(
                     window.location.href +
                       (window.location.href.indexOf(faq.frontmatter.slug) === -1
