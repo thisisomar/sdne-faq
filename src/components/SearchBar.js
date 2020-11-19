@@ -25,12 +25,17 @@ const useStyles = makeStyles(theme =>
         maxWidth: 1200,
         padding: "25px 35px",
       },
-      [theme.breakpoints.down("lg")]: {},
-      [theme.breakpoints.down("md")]: {},
-      [theme.breakpoints.down("sm")]: {},
+      [theme.breakpoints.down("lg")]: {
+      },
+      [theme.breakpoints.down("md")]: {
+        maxWidth: "97%",
+      },
+      [theme.breakpoints.down("sm")]: {
+        maxWidth: "96%",
+      },
       [theme.breakpoints.down("xs")]: {
-        maxWidth: "100%",
-        padding: "20px",
+        maxWidth: "94%",
+        padding: "10px",
       },
     },
     cardContent: {
@@ -63,8 +68,9 @@ export default function SearchBar({ faqs }) {
             InputProps={{ className: classes.searchBar }}
             fullWidth
             onChange={search}
-            label="Search field"
+            label="Search SDNE FAQ"
             type="search"
+            variant="outlined"
           />
         </CardContent>
       </Card>
