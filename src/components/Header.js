@@ -63,7 +63,9 @@ export default function Header() {
     <AppBar position='static' className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
         <Typography className={classes.root} variant='h3'>
+          <a style={{textDecoration: "none", color: "inherit"}} href="/">
           Software Development & Network Engineering
+          </a>
         </Typography>
       </Toolbar>
     </AppBar>
