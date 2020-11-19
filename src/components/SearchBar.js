@@ -58,6 +58,7 @@ export default function SearchBar({ faqs }) {
           <TextField
             id="standard-search"
             color="secondary"
+            InputLabelProps={{ className: classes.searchBar }}
             className={classes.root}
             InputProps={{ className: classes.searchBar }}
             fullWidth
@@ -69,7 +70,9 @@ export default function SearchBar({ faqs }) {
       </Card>
       {faqs.map(edge =>
         edge.node.rawMarkdownBody.toLowerCase().includes(query.toLowerCase()) ||
-        edge.node.frontmatter.question.toLowerCase().includes(query.toLowerCase()) ? (
+        edge.node.frontmatter.question
+          .toLowerCase()
+          .includes(query.toLowerCase()) ? (
           <Grid key={edge.node.id} item xs={12}>
             <FAQCard key={edge.node.id} faq={edge.node} />
           </Grid>
