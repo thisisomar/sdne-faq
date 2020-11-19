@@ -21,8 +21,10 @@ export const faqQuery = graphql`
     faq: markdownRemark(fields: {slug: {eq: $slug}}) {
       html
       frontmatter {
-        slug
         question
+      }
+      fields {
+        slug
       }
     }
   }

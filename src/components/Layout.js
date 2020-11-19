@@ -3,7 +3,6 @@ import { ThemeProvider, CssBaseline, Box, Grid } from "@material-ui/core"
 import { dark } from "../theme"
 
 import Header from "../components/Header"
-import SearchBar from "../components/SearchBar"
 
 const Layout = ({ children }) => (
   <>
@@ -18,7 +17,6 @@ const Layout = ({ children }) => (
           alignItems="center"
           spacing={4}
         >
-          <SearchBar />
           {children}
         </Grid>
       </Box>

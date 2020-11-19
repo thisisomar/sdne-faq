@@ -3,7 +3,6 @@ import {
   TextField,
   Card,
   CardContent,
-  Typography,
   makeStyles,
   createStyles,
 } from "@material-ui/core"
@@ -41,7 +40,7 @@ const useStyles = makeStyles(theme =>
   })
 )
 
-export default function SearchBar() {
+export default function SearchBar({ onChange }) {
   const classes = useStyles()
 
   return (
@@ -53,6 +52,7 @@ export default function SearchBar() {
           className={classes.root}
           InputProps={{ className: classes.searchBar }}
           fullWidth
+          onChange={onChange}
           label="Search field"
           type="search"
         />
