@@ -159,9 +159,9 @@ export default function ({ faq }) {
                       title: faq.frontmatter.question,
                       url:
                         window.location.href +
-                        (window.location.href.indexOf(faq.fields.slug) ===
+                        (window.location.href.indexOf(faq.frontmatter.slug) ===
                         -1
-                          ? faq.fields.slug
+                          ? faq.frontmatter.slug
                           : ''),
                     })
                     .catch(console.error)
@@ -172,8 +172,8 @@ export default function ({ faq }) {
                   }, 1000)
                   copyToClipboard(
                     window.location.href +
-                      (window.location.href.indexOf(faq.fields.slug) === -1
-                        ? faq.fields.slug
+                      (window.location.href.indexOf(faq.frontmatter.slug) === -1
+                        ? faq.frontmatter.slug
                         : '')
                   )
                 }

@@ -19,6 +19,7 @@ export default FAQTemplate;
 export const faqQuery = graphql`
   query FAQBySlug($slug: String!) {
     faq: markdownRemark(fields: {slug: {eq: $slug}}) {
+      id
       html
       frontmatter {
         question

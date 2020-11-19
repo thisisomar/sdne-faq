@@ -1,17 +1,38 @@
 import React from "react"
 import Layout from "../components/Layout"
-import { Grid } from "@material-ui/core"
-import FAQCard from "../components/FAQCard.js"
 import { graphql } from "gatsby"
 
-import Search from "../utils/Search"
+import SearchBar from "../components/SearchBar"
 
-const Home = () => {
+const Home = ({
+  data: {
+    allMarkdownRemark: { edges },
+  },
+}) => {
+  const faqs = edges.filter(edge => !!edge.node.frontmatter.question)
   return (
     <Layout>
-      <Search />
+      <SearchBar faqs={faqs} />
     </Layout>
   )
 }
 
 export default Home
+
+export const pageQuery = graphql`
+  query {
+    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___question] }) {
+      edges {
+        node {
+          id
+          html
+          rawMarkdownBody
+          frontmatter {
+            slug
+            question
+          }
+        }
+      }
+    }
+  }
+`

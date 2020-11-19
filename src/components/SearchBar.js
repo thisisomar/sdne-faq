@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   TextField,
   Card,
@@ -6,6 +6,9 @@ import {
   makeStyles,
   createStyles,
 } from "@material-ui/core"
+
+import { Grid } from "@material-ui/core"
+import FAQCard from "../components/FAQCard.js"
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -40,23 +43,38 @@ const useStyles = makeStyles(theme =>
   })
 )
 
-export default function SearchBar({ onChange }) {
+export default function SearchBar({ faqs }) {
+  const [query, setQuery] = useState("")
   const classes = useStyles()
 
+  const search = event => {
+    setQuery(event.target.value)
+  }
+
   return (
-    <Card className={classes.size}>
-      <CardContent className={classes.cardContent}>
-        <TextField
-          id="standard-search"
-          color="secondary"
-          className={classes.root}
-          InputProps={{ className: classes.searchBar }}
-          fullWidth
-          onChange={onChange}
-          label="Search field"
-          type="search"
-        />
-      </CardContent>
-    </Card>
+    <>
+      <Card className={classes.size}>
+        <CardContent className={classes.cardContent}>
+          <TextField
+            id="standard-search"
+            color="secondary"
+            className={classes.root}
+            InputProps={{ className: classes.searchBar }}
+            fullWidth
+            onChange={search}
+            label="Search field"
+            type="search"
+          />
+        </CardContent>
+      </Card>
+      {faqs.map(edge =>
+        edge.node.rawMarkdownBody.toLowerCase().includes(query.toLowerCase()) ||
+        edge.node.frontmatter.question.toLowerCase().includes(query.toLowerCase()) ? (
+          <Grid key={edge.node.id} item xs={12}>
+            <FAQCard key={edge.node.id} faq={edge.node} />
+          </Grid>
+        ) : null
+      )}
+    </>
   )
 }

@@ -11,14 +11,9 @@ exports.createPages = ({graphql, actions}) => {
           {
             faqs: allMarkdownRemark {
               nodes {
-                id
-                frontmatter {
-                  question
-                }
                 fields {
                   slug
                 }
-                html
               }
             }
           }
