@@ -7,10 +7,8 @@ import Pagination from "../components/Pagination"
 
 export default function FAQGrid({ faqs, isPaginated }) {
   const [paginatedFAQS, setPaginatedFAQS] = useState(faqs)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageCount, setPageCount] = useState(
-    Math.floor(faqs.length / FAQ_GRID_PAGE_SIZE)
-  )
+  const [, setCurrentPage] = useState(1)
+  const [pageCount] = useState(Math.floor(faqs.length / FAQ_GRID_PAGE_SIZE))
 
   const handlePageChange = (_, currentPage) => {
     const currentPageFAQs = getCurrentPageFAQs(
@@ -25,7 +23,7 @@ export default function FAQGrid({ faqs, isPaginated }) {
   useEffect(() => {
     // set initial state for paginated faqs
     setPaginatedFAQS(getCurrentPageFAQs(faqs))
-  }, [])
+  }, [faqs])
 
   if (faqs.length === 0) {
     return (
