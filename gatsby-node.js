@@ -1,35 +1,47 @@
-const path = require('path')
-const faqTemplate = path.resolve("./src/templates/faqTemplate.js")
+const path = require("path")
+const FAQTemplate = path.resolve("./src/templates/FAQTemplate.js")
 
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  const { createPage } = actions
 
-exports.createPages = ({graphql, actions}) => {
-  const {createPage} = actions
-  return new Promise((resolve, reject) => {
-    resolve(
-      graphql(
-        `
-          {
-            faqs: allMarkdownRemark {
-              nodes {
-                fields {
-                  slug
-                }
-              }
+  // query for all markdown pages
+  const allMarkdownPageQueryResult = await graphql(
+    `
+      query {
+        allMarkdownRemark {
+          nodes {
+            frontmatter {
+              slug
             }
           }
-        `
-      ).then((result) => {
-        const faqs = result.data.faqs.nodes
-        faqs.forEach((faq) => {
-          createPage({
-            path: faq.fields.slug,
-            component: faqTemplate,
-            context: {
-              slug: faq.fields.slug,
-            },
-          })
-        })
-      })
-    )
+        }
+      }
+    `
+  )
+
+  // handle errors
+  if (allMarkdownPageQueryResult.errors) {
+    reporter.panicOnBuild("Error while running GraphQL query.")
+    return
+  }
+
+  // create a page for each markdown file
+  const faqs = allMarkdownPageQueryResult.data.allMarkdownRemark.nodes
+
+  faqs.forEach(faq => {
+    const slug = faq.frontmatter.slug
+
+    const pageData = {
+      path: `faqs/${slug}`,
+      component: FAQTemplate,
+      context: {
+        slug,
+      },
+    }
+
+    createPage(pageData)
+
+    // log created page
+    reporter.info(`The ${pageData.path} page has been generated successfully`)
   })
 }
