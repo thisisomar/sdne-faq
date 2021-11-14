@@ -1,29 +1,24 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes } from "@mui/material/styles"
 
-
-const darkMuiTheme = createMuiTheme({
-  type: 'dark',
+const darkMuiTheme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
-      dark: '#16131d',
-      main: '#1f1b29'
+      main: "#1f1b29",
+    },
+    secondary: {
+      main: "#FF4365",
+    },
+    text: {
+      primary: "#fff",
     },
     background: {
-      default: '#1f1b29'
+      default: "#1f1b29",
     },
-    typography: {
-
-      primary: {
-        
-        fontFamily: [
-            'Poppins',
-            'Roboto',
-            'sans-serif'
-          ].join(','),
-        },
-  
-      },
-  }
+  },
+  typography: {
+    fontFamily: ["Poppins", "Roboto", "sans-serif"].join(","),
+  },
 })
 
-export const dark = responsiveFontSizes(darkMuiTheme);
+export const dark = responsiveFontSizes(darkMuiTheme)
