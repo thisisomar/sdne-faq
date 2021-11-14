@@ -1,5 +1,5 @@
 ---
-slug: "faqs/example"
+slug: "example"
 question: "This is an example question"
 ---
 
