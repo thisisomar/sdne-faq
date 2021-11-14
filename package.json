@@ -1,6 +1,6 @@
 {
   "name": "sdne-faq",
-  "private":true,
+  "private": true,
   "description": "The website housing faqs for the SDNE program",
   "version": "0.1.0",
   "license": "0BSD",
