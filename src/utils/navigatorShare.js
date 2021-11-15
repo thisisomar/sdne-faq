@@ -1,7 +1,3 @@
-export const navigatorShare = async data => {
-  try {
-    await navigator.share(data)
-  } catch (error) {
-    console.error(error)
-  }
+export const navigatorShare = data => {
+  return navigator.share(data)
 }
