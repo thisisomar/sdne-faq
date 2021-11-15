@@ -4,10 +4,10 @@ export const getAbsoluteURL = (slug, parentSlug) => {
 
   if (!regex.test(window.location.href)) {
     if (parentSlug) {
-      fullURL = `${fullURL}${parentSlug}/${slug}`
-    } else {
-      fullURL = `${fullURL}${slug}`
+      return `${fullURL}${parentSlug}/${slug}`
     }
+
+    return `${fullURL}${slug}`
   }
 
   return fullURL
