@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { getCurrentPageFAQs } from "../utils/getCurrentPageFAQs"
 import { FAQ_GRID_PAGE_SIZE } from "../utils/constants"
 import { Grid as MUIGrid, Box as MUIBox } from "@mui/material"
-import FAQGridCard from "../components/FAQGridCard.js"
+import FAQCard from "../components/FAQCard"
 import Pagination from "../components/Pagination"
 
 export default function FAQGrid({ faqs, isPaginated }) {
@@ -43,8 +43,8 @@ export default function FAQGrid({ faqs, isPaginated }) {
         gridAutoRows="1fr"
       >
         {paginatedFAQS.map(({ node }) => (
-          <MUIGrid key={node.id} item xs={12} sm={10} md={4}>
-            <FAQGridCard faq={node} />
+          <MUIGrid key={node.id} item xs={12} sm={12} md={8} lg={4}>
+            <FAQCard faq={node} showReadMore={true} />
           </MUIGrid>
         ))}
       </MUIGrid>

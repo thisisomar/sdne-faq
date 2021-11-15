@@ -8,7 +8,6 @@ import {
   Card as MUICard,
   CardContent as MUICardContent,
   Typography as MUITypography,
-  Divider as MUIDivider,
   Button as MUIButton,
   Box as MUIBox,
   Tooltip as MUITooltip,
@@ -28,7 +27,7 @@ const useStyles = makeStyles(theme =>
   })
 )
 
-export default function FAQCard({ faq }) {
+export default function FAQCard({ faq, showReadMore, showFullFAQ }) {
   const classes = useStyles()
   const [openTooltip, setOpenTooltip] = React.useState(false)
 
@@ -65,22 +64,24 @@ export default function FAQCard({ faq }) {
   }
 
   return (
-    <MUICard raised={true} className={classes.card}>
+    <MUICard className={classes.card} sx={{ bgcolor: "primary.main" }}>
       <MUICardHeader
         title={faq.frontmatter.question}
-        component="h5"
+        component="h3"
         className={classes.cardHeader}
+        sx={{ pb: 0 }}
       ></MUICardHeader>
-      <MUIDivider />
-      <MUICardContent className={classes.cardContent}>
+      <MUICardContent className={classes.cardContent} sx={{ py: 0 }}>
         <MUITypography
           color="textPrimary"
           component="div"
-          dangerouslySetInnerHTML={{ __html: faq.excerpt }}
+          fontFamily="Roboto"
+          dangerouslySetInnerHTML={{
+            __html: showFullFAQ ? faq.html : faq.excerpt,
+          }}
         />
       </MUICardContent>
-      <MUIDivider />
-      <MUICardActions>
+      <MUICardActions sx={{ pb: 2, px: 2 }}>
         <MUIBox>
           <MUITooltip
             title="Copied!"
@@ -105,15 +106,17 @@ export default function FAQCard({ faq }) {
               Share
             </MUIButton>
           </MUITooltip>
-          <MUIButton
-            variant="contained"
-            color="secondary"
-            component={Link}
-            to={`${FAQ_PARENT_SLUG}/${faq.frontmatter.slug}`}
-            sx={{ ml: 1 }}
-          >
-            Read More
-          </MUIButton>
+          {showReadMore && (
+            <MUIButton
+              variant="contained"
+              color="secondary"
+              component={Link}
+              to={`${FAQ_PARENT_SLUG}/${faq.frontmatter.slug}`}
+              sx={{ ml: 1 }}
+            >
+              Read More
+            </MUIButton>
+          )}
         </MUIBox>
       </MUICardActions>
     </MUICard>

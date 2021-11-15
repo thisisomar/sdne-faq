@@ -2,12 +2,11 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles"
 
 const darkMuiTheme = createTheme({
   palette: {
-    mode: "dark",
     primary: {
-      main: "#1f1b29",
+      main: "#16131d",
     },
     secondary: {
-      main: "#FF4365",
+      main: "#ff4365",
     },
     text: {
       primary: "#fff",
