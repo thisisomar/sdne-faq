@@ -50,7 +50,7 @@ export default function FAQCard({ faq, showReadMore, showFullFAQ }) {
       title: faq.frontmatter.question,
       url: getAbsoluteURL(faq.frontmatter.slug, FAQ_PARENT_SLUG),
     }
-    // if the devive support a native sharing mechanism use that otherwise copy to clipboard
+    // if the device supports a native sharing mechanism use that over clipboard
     try {
       if (navigator.share) {
         await navigatorShare(data)
