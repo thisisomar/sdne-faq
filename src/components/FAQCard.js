@@ -1,190 +1,124 @@
-import React from 'react'
+import React from "react"
+import { Link } from "gatsby"
+import { FAQ_PARENT_SLUG } from "../utils/constants"
+import { navigatorShare } from "../utils/navigatorShare"
+import { getAbsoluteURL } from "../utils/getAbsoluteURL"
+import { copyToClipboard } from "../utils/copyToClipboard"
 import {
-  Card,
-  CardContent,
-  Typography,
-  Divider,
-  makeStyles,
+  Card as MUICard,
+  CardContent as MUICardContent,
+  Typography as MUITypography,
+  Button as MUIButton,
+  Box as MUIBox,
+  Tooltip as MUITooltip,
+  CardActions as MUICardActions,
+  CardHeader as MUICardHeader,
   createStyles,
-  Button,
-  Box,
-  Tooltip,
-} from '@material-ui/core'
+} from "@mui/material"
 
-import { Link } from 'gatsby'
-import LinkIcon from '@material-ui/icons/Link'
-
-import { copyToClipboard } from '../utils/CopyToClipboard'
+import { makeStyles } from "@mui/styles"
+import LinkIcon from "@mui/icons-material/Link"
 
 const useStyles = makeStyles(theme =>
   createStyles({
-    title: {
-      marginBottom: 7,
-      fontWeight: 700,
-      fontFamily: 'Poppins, sans-serif',
-      color: '#ffffff',
-
-      [theme.breakpoints.down('xl')]: {
-        fontSize: '3em',
-      },
-      [theme.breakpoints.down('lg')]: {
-        fontSize: '2.5em',
-      },
-      [theme.breakpoints.down('md')]: {
-        fontSize: '2.2em',
-      },
-      [theme.breakpoints.down('sm')]: {
-        fontSize: '1.9em',
-      },
-      [theme.breakpoints.down('xs')]: {
-        fontSize: '1.6em',
-      },
-    },
-    size: {
-      width: '100%',
-      backgroundColor: theme.palette.primary.dark,
-
-      [theme.breakpoints.down('xl')]: {
-        maxWidth: 1200,
-        padding: '25px 35px',
-      },
-      [theme.breakpoints.down('lg')]: {},
-      [theme.breakpoints.down('md')]: {},
-      [theme.breakpoints.down('sm')]: {},
-      [theme.breakpoints.down('xs')]: {
-        maxWidth: '100%',
-        padding: '20px',
-      },
-    },
-    body: {
-      lineHeight: 1.75,
-      color: '#ffffff',
-      fontFamily: 'Roboto, sans-serif',
-      fontWeight: 300,
-
-      '& p, li': {
-        [theme.breakpoints.down('xl')]: {
-          margin: '10px 0px 0px 0px',
-          fontSize: '1.5em',
-        },
-        [theme.breakpoints.down('lg')]: {
-          ontSize: '1.4em',
-        },
-        [theme.breakpoints.down('md')]: {
-          ontSize: '1.25em',
-        },
-        [theme.breakpoints.down('sm')]: {
-          ontSize: '1.15em',
-        },
-        [theme.breakpoints.down('xs')]: {
-          fontSize: '1.1em',
-        },
-      },
-
-      '& ul': {
-        paddingLeft: 22,
-        margin: 0,
-      },
-
-      '& a': {
-        color: theme.palette.secondary.main,
-        textDecoration: 'none',
-      },
-    },
-    controlBox: {
-      marginTop: 15,
-    },
-    cardContent: {
-      padding: 0,
-
-      '&:last-child': {
-        padding: 0,
-      },
-    },
+    card: { height: "100%", display: "flex", flexDirection: "column" },
+    cardHeader: { paddingTop: 0, paddingBottom: 0, margin: 4 },
+    cardContent: { flexGrow: 1 },
   })
 )
 
-export default function ({ faq }) {
+export default function FAQCard({ faq, showReadMore, showFullFAQ }) {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false)
+  const [openTooltip, setOpenTooltip] = React.useState(false)
 
-  const handleTooltipClose = () => {
-    setOpen(false)
+  const handleTooltipChange = () => {
+    toggleToolTip()
   }
 
-  const handleTooltipOpen = () => {
-    setOpen(true)
+  const toggleToolTip = (force = false) => {
+    // auto close 1 second after opening
+    if (!openTooltip && !force) {
+      setTimeout(() => {
+        setOpenTooltip(false)
+      }, 1000)
+    }
+    setOpenTooltip(true)
+  }
+
+  const handleShareButtonClick = async () => {
+    const data = {
+      title: faq.frontmatter.question,
+      url: getAbsoluteURL(faq.frontmatter.slug, FAQ_PARENT_SLUG),
+    }
+    // if the device supports a native sharing mechanism use that over clipboard
+    try {
+      if (navigator.share) {
+        await navigatorShare(data)
+      } else {
+        handleTooltipChange()
+        copyToClipboard(data.url)
+      }
+    } catch (error) {
+      console.error(`Failed to share due to the following error: ${error}`)
+    }
   }
 
   return (
-    <Card className={classes.size}>
-      <CardContent className={classes.cardContent}>
-        <Typography className={classes.title} variant='h3'>
-          {faq.frontmatter.question}
-        </Typography>
-
-        <Divider />
-
-        <Typography
-          className={classes.body}
-          color='textPrimary'
-          component='div'
-          dangerouslySetInnerHTML={{ __html: faq.html }}
+    <MUICard className={classes.card} sx={{ bgcolor: "primary.main" }}>
+      <MUICardHeader
+        title={faq.frontmatter.question}
+        component="h3"
+        className={classes.cardHeader}
+        sx={{ pb: 0 }}
+      ></MUICardHeader>
+      <MUICardContent className={classes.cardContent} sx={{ py: 0 }}>
+        <MUITypography
+          color="textPrimary"
+          component="div"
+          fontFamily="Roboto"
+          dangerouslySetInnerHTML={{
+            __html: showFullFAQ ? faq.html : faq.excerpt,
+          }}
         />
-
-        <Box className={classes.controlBox}>
-          <Tooltip
-            title='Copied!'
-            aria-label='copied'
+      </MUICardContent>
+      <MUICardActions sx={{ pb: 2, px: 2 }}>
+        <MUIBox>
+          <MUITooltip
+            title="Copied!"
+            aria-label="copied"
             PopperProps={{
               disablePortal: true,
             }}
-            onClose={handleTooltipClose}
-            open={open}
+            open={openTooltip}
             disableFocusListener
             disableHoverListener
             disableTouchListener
             arrow
           >
-            <Button
-              variant='contained'
-              color='secondary'
+            <MUIButton
+              variant="contained"
+              color="secondary"
               component={Link}
-              className={classes.button}
-              to='.'
-              onClick={() => {
-                if (navigator.share) {
-                  navigator
-                    .share({
-                      title: faq.frontmatter.question,
-                      url:
-                        window.location.href +
-                        (window.location.href.indexOf(faq.frontmatter.slug) ===
-                        -1
-                          ? faq.frontmatter.slug
-                          : ''),
-                    })
-                    .catch(console.error)
-                } else {
-                  handleTooltipOpen()
-                  setTimeout(() => {
-                    handleTooltipClose()
-                  }, 1000)
-                  copyToClipboard(
-                    window.location.href +
-                      (window.location.href.indexOf(faq.frontmatter.slug) === -1
-                        ? faq.frontmatter.slug
-                        : '')
-                  )
-                }
-              }}
+              to="."
+              onClick={handleShareButtonClick}
               startIcon={<LinkIcon />}
             >
               Share
-            </Button>
-          </Tooltip>
-        </Box>
-      </CardContent>
-    </Card>
+            </MUIButton>
+          </MUITooltip>
+          {showReadMore && (
+            <MUIButton
+              variant="contained"
+              color="secondary"
+              component={Link}
+              to={`${FAQ_PARENT_SLUG}/${faq.frontmatter.slug}`}
+              sx={{ ml: 1 }}
+            >
+              Read More
+            </MUIButton>
+          )}
+        </MUIBox>
+      </MUICardActions>
+    </MUICard>
   )
 }
